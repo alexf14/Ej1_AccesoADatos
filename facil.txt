@@ -1,30 +1,30 @@
-Transformers
-Aquaman
-Los miniuns
-Iron Man
-Spider Man
-Superman
-Los increibles
-Frozen
-Star wars
-Los vengadores
-Jurassic Park
-Titanic
-Avatar
-Joker
-Robocop
-Poltergeist
-Blade Runner
-Rocky
-Taxi Driver
-El padrino
-Origen
-Toy Story
-Gravity
-El renacido
-Parasito
-Intocable
-V de vendetta
-Dune
-Lo imposible
-It
+TRANSFORMERS
+AQUAMAN
+LOS MINIONS
+IRON MAN
+SPIDER MAN
+SUPERMAN
+LOS INCREIBLES
+FROZEN
+STAR WARS
+LOS VENGADORES
+JURASSIC PARK
+TITANIC
+AVATAR
+JOKER
+ROBOCOP
+POLTERGEIST
+BLADE RUNNER
+ROCKY
+TAXI DRIVER
+EL PADRINO
+ORIGEN
+TOY STORY
+GRAVITY
+EL RENACIDO
+PARASITO
+INTOCABLE
+V DE VENDETTA
+DUNE
+LO IMPOSIBLE
+IT
