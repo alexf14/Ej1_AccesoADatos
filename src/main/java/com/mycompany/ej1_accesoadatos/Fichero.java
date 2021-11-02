@@ -3,38 +3,29 @@ package com.mycompany.ej1_accesoadatos;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.Serializable;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Properties;
 
-public class Fichero {
-   public static void main(String [] args){
-       File archivo = null;
-       FileReader fr = null;
-       BufferedReader br = null;
-       try {
-         // Apertura del fichero y creacion de BufferedReader para poder
-         // hacer una lectura comoda (disponer del metodo readLine()).
-         archivo = new File ("dificil.txt");
-         fr = new FileReader (archivo);
-         br = new BufferedReader(fr);
+public class Fichero implements Serializable{
+    public ArrayList<String> nombres;
 
-         // Lectura del fichero
-         String linea;
-         while((linea=br.readLine())!=null)
-            System.out.println(linea);
-      }
-      catch(Exception e){
-         e.printStackTrace();
-      }finally{
-         // En el finally cerramos el fichero, para asegurarnos
-         // que se cierra tanto si todo va bien como si salta 
-         // una excepcion.
-         try{                    
-            if( null != fr ){   
-               fr.close();  
-            }  
-             System.out.println("Se ha leido el fichero con exito");
-         }catch (Exception e2){ 
-            e2.printStackTrace();
-         }
-      }
-   }
+    public void palabras(){
+        Properties a = new Properties();
+        try { 
+            a.load(Files.newInputStream(Path.of("palabras.properties"))) ;
+            String fileproperties = a.getProperty("fileproperties");
+            Charset charset = StandardCharsets.UTF_8;
+            nombres = (ArrayList<String>) Files.readAllLines(Paths.get(fileproperties), charset);
+            }catch(IOException ex){
+                System.err.println("error 404");
+            }
+    }
 }
+
