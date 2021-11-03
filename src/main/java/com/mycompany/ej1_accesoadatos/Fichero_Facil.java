@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class Fichero_Facil implements Serializable{
-    public ArrayList<String> arrayFacil;
+    public static ArrayList<String> arrayFacil;
 
     public void palabras(){
         Properties dificultad = new Properties();
         try { 
-            dificultad.load(Files.newInputStream(Path.of("palabras.properties"))) ;
+            dificultad.load(Files.newInputStream(Path.of("palabras.properties") )) ;
             String fileproperties = dificultad.getProperty("filepropertiesF");
             Charset charset = StandardCharsets.UTF_8;
             arrayFacil = (ArrayList<String>) Files.readAllLines(Paths.get(fileproperties), charset);

@@ -4,7 +4,10 @@ import static java.lang.Integer.parseInt;
 import java.util.Scanner;
 
 public class Main {
+    
+    
     public static void main(String [] arg){
+        Partida p=new Partida();
         Scanner src = new Scanner(System.in);
         Scanner dificultad = new Scanner(System.in);
         
@@ -27,10 +30,9 @@ public class Main {
             String  vDificultad= dificultad.nextLine();
             
             //Llamar al metodo para crear una partida nueva
-            Partida p = new Partida();
-            System.out.println(p);
         }
         
+        p.partida("d");
         //Si selecciona crear una nueva partida borramos el fichero de guardado y creamos uno nuevo
             //Escoger dificultad
                 //Ir a la clase de juego
