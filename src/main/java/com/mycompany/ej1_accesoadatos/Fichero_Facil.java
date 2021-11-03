@@ -13,16 +13,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class Fichero implements Serializable{
-    public ArrayList<String> nombres;
+public class Fichero_Facil implements Serializable{
+    public ArrayList<String> arrayFacil;
 
     public void palabras(){
-        Properties a = new Properties();
+        Properties dificultad = new Properties();
         try { 
-            a.load(Files.newInputStream(Path.of("palabras.properties"))) ;
-            String fileproperties = a.getProperty("fileproperties");
+            dificultad.load(Files.newInputStream(Path.of("palabras.properties"))) ;
+            String fileproperties = dificultad.getProperty("filepropertiesF");
             Charset charset = StandardCharsets.UTF_8;
-            nombres = (ArrayList<String>) Files.readAllLines(Paths.get(fileproperties), charset);
+            arrayFacil = (ArrayList<String>) Files.readAllLines(Paths.get(fileproperties), charset);
             }catch(IOException ex){
                 System.err.println("error 404");
             }

@@ -13,16 +13,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class Fichero2 {
-    public ArrayList<String> nombres;
+public class Fichero_Dificil {
+    public ArrayList<String> arrayDificil;
 
     public void palabras(){
-        Properties a = new Properties();
+        Properties dificultad = new Properties();
         try { 
-            a.load(Files.newInputStream(Path.of("palabras.properties"))) ;
-            String fileproperties2 = a.getProperty("fileproperties2");
+            dificultad.load(Files.newInputStream(Path.of("palabras.properties"))) ;
+            String fileproperties2 = dificultad.getProperty("filepropertiesD");
             Charset charset = StandardCharsets.UTF_8;
-            nombres = (ArrayList<String>) Files.readAllLines(Paths.get(fileproperties2), charset);
+            arrayDificil = (ArrayList<String>) Files.readAllLines(Paths.get(fileproperties2), charset);
             }catch(IOException ex){
                 System.err.println("error 404");
             }
