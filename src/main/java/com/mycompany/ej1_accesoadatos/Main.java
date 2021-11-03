@@ -21,12 +21,14 @@ public class Main {
         if(vInicio==1){
             //Llamar al metodo para cargar partida
         }else if(vInicio==2){
-            System.out.println("Selecciona dificultad");
             System.out.println("Pulsa F para facil (de 1 a 15 carácteres)");
             System.out.println("Pulsa D para dificil (más de 15 carácteres)");
             
             String  vDificultad= dificultad.nextLine();
+            
             //Llamar al metodo para crear una partida nueva
+            Partida p = new Partida();
+            System.out.println(p);
         }
         
         //Si selecciona crear una nueva partida borramos el fichero de guardado y creamos uno nuevo
