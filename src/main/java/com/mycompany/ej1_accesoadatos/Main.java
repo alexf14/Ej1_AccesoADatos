@@ -14,31 +14,29 @@ public class Main {
         
         System.out.println("¡Bienvenido al juego de adivinar películas!");
         System.out.println("¿Que quieres hacer?");
-        System.out.println("Pulsa 1 para cargar partida");
-        System.out.println("Pulsa 2 para crear una nueva partida");
+        System.out.println("Pulsa C para cargar partida");
+        System.out.println("Pulsa N para crear una nueva partida");
         
-       String  lPartida= src.nextLine();
-       int vInicio=parseInt(lPartida, 10);
-        
+        String  lPartida= src.nextLine();
+        lPartida.toUpperCase();
+
         //Si selecciona cargar ua partida se cargara el fichero de guardado con la partida en curso
             //Ir a la clase de juego
             
-        if(vInicio==1){
+        if(lPartida == "C"){
             //Llamar al metodo para cargar partida
-        }else if(vInicio==2){
+        }else if(lPartida == "N"){
             System.out.println("Pulsa F para facil (de 1 a 15 carácteres)");
             System.out.println("Pulsa D para dificil (más de 15 carácteres)");
             
             String  dPartida= src.nextLine();
-            if(dPartida==("F")){
-                for(int k=0; k < a.arrayFacil.size(); k++){
-                    System.out.println(a.arrayFacil.get(k));
-                } 
-            }
-            String  vDificultad= dificultad.nextLine();
-            vDificultad.toUpperCase();
+            dPartida.toUpperCase();
             
-            //Llamar al metodo para crear una partida nueva
+            if(dPartida == "F"){
+                p.elegirPalabra();
+                p.rellenarBarras();
+            
+            }
         }
     }
 }

@@ -7,20 +7,22 @@ import java.util.Scanner;
 public class Partida {
     
     String fraseRandom;//Palabra para adivinar del random
-    int cont;// Puntos
-    
-    //char[] pelicula;//Array sin _ para comprobar despues
+    int cont;// Puntos  
     char[] peliculaAdivinar ;//array _ par desbloquear letras
     
-    public void elegirPalabra (){
+    public void elegirPalabra (){//Elige palabra random del array list
         Fichero_Facil a = new Fichero_Facil();
         a.palabras();
         int random =(int) Math.floor(Math.random()*(a.arrayFacil.size()-1)+0);
         fraseRandom = a.arrayFacil.get(random);
-        //falta el que no se repitan las palabras
+                
+        //falta el que no se repitan las frases
+        //Manejar los errores estilo borrar la frase para q no se repita
+        //si el arraylist esta vacio volver a llenarlo
+        
     }
     
-    public void rellenarAsteriscos(){
+    public void rellenarBarras(){//Relleno el array de char con _ y paso de los espacios
         char espacios = ' ';
         peliculaAdivinar= new char [fraseRandom.length()]; 
         for(int k = 0; k < peliculaAdivinar.length; k++){
@@ -34,18 +36,15 @@ public class Partida {
     }
     
     public void partida(){
-        
-        
-        
-        //Random para la sacar titulo random de arraylist
-         
-        //obtengo la posicion random y la guardo en array
-        
-        //Relleno uno de los arrays con _
-        
+        /*
+        aqui juego la partida, inicializo los puntos para si despues tengo q guardar la partida
+        hago llamadas a los otros metodos para establecer la palabra random y demas
+        todo esto es lo q despues si guardo tengo q cargar por lo q no tiene valores por defecto.
+            
+        */       
     }
     
-    public char [] frase(){
+    public void letraDescubrir(){//Va desvelando el array de char si las letras q yo introduzco estan en el
         Scanner letraIntroducida = new Scanner(System.in);
         String letra;
         letra = letraIntroducida.nextLine();
@@ -53,10 +52,9 @@ public class Partida {
         letra.charAt(0);
         
         for(int k=0; k<peliculaAdivinar.length-1; k++){
-            if(pelicula[k]==letra.charAt(0)){
+            if(fraseRandom.charAt(k)== letra.charAt(0)){
                 peliculaAdivinar[k]=letra.charAt(0);
             }
         }
-        return peliculaAdivinar;
     }
 }
