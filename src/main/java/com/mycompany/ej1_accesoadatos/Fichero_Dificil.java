@@ -1,8 +1,5 @@
 package com.mycompany.ej1_accesoadatos;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -14,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class Fichero_Dificil {
-    public ArrayList<String> arrayDificil;
+    public static ArrayList<String> arrayDificil= new ArrayList<String>();
 
     public void palabras(){
         Properties dificultad = new Properties();
@@ -23,8 +20,8 @@ public class Fichero_Dificil {
             String fileproperties2 = dificultad.getProperty("filepropertiesD");
             Charset charset = StandardCharsets.UTF_8;
             arrayDificil = (ArrayList<String>) Files.readAllLines(Paths.get(fileproperties2), charset);
-            }catch(IOException ex){
-                System.err.println("error 404");
-            }
+        }catch(IOException ex){
+            System.err.println("error 404");
+        }
     }
 }

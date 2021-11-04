@@ -5,32 +5,49 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Partida {
-    Fichero_Facil f=new Fichero_Facil();
-    String arrayF;
-    int cont=2000;
-    Scanner letraIntroducida = new Scanner(System.in);
     
-    public Partida() {
+    String fraseRandom;//Palabra para adivinar del random
+    int cont;// Puntos
+    
+    //char[] pelicula;//Array sin _ para comprobar despues
+    char[] peliculaAdivinar ;//array _ par desbloquear letras
+    
+    public void elegirPalabra (){
+        Fichero_Facil a = new Fichero_Facil();
+        a.palabras();
+        int random =(int) Math.floor(Math.random()*(a.arrayFacil.size()-1)+0);
+        fraseRandom = a.arrayFacil.get(random);
+        //falta el que no se repitan las palabras
     }
-
-    public char[] partida(String letra){
-        //Random para la sacar titulo random de arraylist
-        int random =(int) Math.floor(Math.random()*(Fichero_Facil.arrayFacil.size()-1)+0); 
-        //obtengo la posicion random y la guardo en array
-        arrayF = Fichero_Facil.arrayFacil.get(random);
-        //Creacion dos array para recorrer y mostrar 
-        //con el contenido de la ubicacion de random
-        char[] pelicula = arrayF.toCharArray();
-        char[] peliculaAdivinar = arrayF.toCharArray();
-        //Relleno uno de los arrays con _
+    
+    public void rellenarAsteriscos(){
+        char espacios = ' ';
+        peliculaAdivinar= new char [fraseRandom.length()]; 
         for(int k = 0; k < peliculaAdivinar.length; k++){
-            if(pelicula[k]!=' '){
-                peliculaAdivinar[k]=('_');
-            }
-            
-            System.out.print( peliculaAdivinar[k]);
+             peliculaAdivinar[k]=('_');    
         }
-        //Introduccion letra
+        for(int x = 0; x < peliculaAdivinar.length; x++){
+            if(fraseRandom.charAt(x)== espacios){
+                peliculaAdivinar[x]=' ';
+            }
+        }      
+    }
+    
+    public void partida(){
+        
+        
+        
+        //Random para la sacar titulo random de arraylist
+         
+        //obtengo la posicion random y la guardo en array
+        
+        //Relleno uno de los arrays con _
+        
+    }
+    
+    public char [] frase(){
+        Scanner letraIntroducida = new Scanner(System.in);
+        String letra;
         letra = letraIntroducida.nextLine();
         letra.toUpperCase();        
         letra.charAt(0);
@@ -40,7 +57,6 @@ public class Partida {
                 peliculaAdivinar[k]=letra.charAt(0);
             }
         }
-        
-     return pelicula;
+        return peliculaAdivinar;
     }
 }
