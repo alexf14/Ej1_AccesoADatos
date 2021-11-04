@@ -17,25 +17,23 @@ public class Main {
         System.out.println("Pulsa C para cargar partida");
         System.out.println("Pulsa N para crear una nueva partida");
         
-        String  lPartida= src.nextLine();
-        lPartida.toUpperCase();
+        String  lPartida= src.next();
+        
 
         //Si selecciona cargar ua partida se cargara el fichero de guardado con la partida en curso
             //Ir a la clase de juego
             
-        if(lPartida == "C"){
+        if("c".equals(lPartida) || "C".equals(lPartida)){
             //Llamar al metodo para cargar partida
-        }else if(lPartida == "N"){
+        }else if("n".equals(lPartida) || "N".equals(lPartida)){
             System.out.println("Pulsa F para facil (de 1 a 15 carácteres)");
             System.out.println("Pulsa D para dificil (más de 15 carácteres)");
+            p.elegirPalabra();
+            p.rellenarBarras();
             
-            String  dPartida= src.nextLine();
-            dPartida.toUpperCase();
-            
-            if(dPartida == "F"){
-                p.elegirPalabra();
-                p.rellenarBarras();
-            
+            String  dPartida= dificultad.nextLine();
+            if("f".equals(dPartida)|| "F".equals(dPartida)){
+                System.out.println("hola");
             }
         }
     }

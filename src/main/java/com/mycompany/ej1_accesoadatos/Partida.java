@@ -51,7 +51,7 @@ public class Partida {
         letra.toUpperCase();        
         letra.charAt(0);
         
-        for(int k=0; k<peliculaAdivinar.length-1; k++){
+        for(int k=0; k<peliculaAdivinar.length; k++){
             if(fraseRandom.charAt(k)== letra.charAt(0)){
                 peliculaAdivinar[k]=letra.charAt(0);
             }
