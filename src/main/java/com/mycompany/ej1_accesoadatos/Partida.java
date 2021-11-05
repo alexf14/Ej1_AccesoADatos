@@ -49,12 +49,14 @@ public class Partida {
             }
             System.out.println(" ");
             System.out.println(fraseRandom);
-            System.out.println("Si quieres introducir una letra pulsa L, si quieres una pista pulsa P");
+            System.out.println("Si quieres introducir una letra pulsa L, si quieres una pista pulsa P, si quieres adivinar la frase pulsa F");
             String  Sopciones= opciones.next();
             if("l".equals(Sopciones) || "L".equals(Sopciones)){
             this.letraDescubrir();
             }else if("p".equals(Sopciones) || "P".equals(Sopciones)){
                 this.pista();
+            }else if("f".equals(Sopciones) || "F".equals(Sopciones)){
+                this.adivinarFrase();
             }
             
             for(int x = 0; x < peliculaAdivinar.length; x++){
@@ -111,5 +113,18 @@ public class Partida {
             }
         }
         cont=cont-200;
+    }
+    public void adivinarFrase() {
+        Scanner introducida = new Scanner(System.in);
+        String intentoFrase = introducida.nextLine();
+
+            if (!fraseRandom.equals(intentoFrase)) {
+                System.out.println("Lo siento, al parecer la frase es incorrecta");
+                cont = cont - 500;
+            } else {
+                for (int k = 0; k < peliculaAdivinar.length; k++) {
+                    peliculaAdivinar[k] = intentoFrase.charAt(k);
+                }
+            }
     }
 }
