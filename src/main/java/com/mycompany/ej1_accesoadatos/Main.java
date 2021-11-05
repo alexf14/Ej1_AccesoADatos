@@ -28,12 +28,10 @@ public class Main {
         }else if("n".equals(lPartida) || "N".equals(lPartida)){
             System.out.println("Pulsa F para facil (de 1 a 15 carácteres)");
             System.out.println("Pulsa D para dificil (más de 15 carácteres)");
-            p.elegirPalabra();
-            p.rellenarBarras();
             
-            String  dPartida= dificultad.nextLine();
+            String  dPartida= dificultad.next();
             if("f".equals(dPartida)|| "F".equals(dPartida)){
-                System.out.println("hola");
+                p.partida();
             }
         }
     }
