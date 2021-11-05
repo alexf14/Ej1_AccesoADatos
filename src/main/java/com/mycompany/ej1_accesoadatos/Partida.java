@@ -35,17 +35,27 @@ public class Partida {
     }
     
     public void partida(){
+        Scanner opciones = new Scanner(System.in);
+        
         cont = 2000;
         this.elegirPalabra();
         this.rellenarBarras();
         int contadorD = 0;
+        
         for (boolean descubierto = false; !descubierto;) {
             System.out.println(cont);
             for(int k = 0; k < peliculaAdivinar.length; k++ ){
                 System.out.print(peliculaAdivinar[k]);
             }
             System.out.println(" ");
+            System.out.println(fraseRandom);
+            System.out.println("Si quieres introducir una letra pulsa L, si quieres una pista pulsa P");
+            String  Sopciones= opciones.next();
+            if("l".equals(Sopciones) || "L".equals(Sopciones)){
             this.letraDescubrir();
+            }else if("p".equals(Sopciones) || "P".equals(Sopciones)){
+                this.pista();
+            }
             
             for(int x = 0; x < peliculaAdivinar.length; x++){
                 if(peliculaAdivinar[x]=='*'){
@@ -54,6 +64,7 @@ public class Partida {
             }
             if(contadorD==0){
                 System.out.println(fraseRandom);
+                System.out.println("FELICIDADES TE HAS QUEDADO CON "+ cont +" PUNTOS");
                 descubierto = true;
             }
             contadorD = 0;
@@ -86,17 +97,19 @@ public class Partida {
             cont=cont-50;
         }
     }
-    public void adivinarFrase(){
-        Scanner iIntroducida = new Scanner(System.in);
-        String intentoFrase = iIntroducida.next();
+    public void pista(){
+        int posPista=(int) (Math.random()*(peliculaAdivinar.length-1)+0);
+        while((peliculaAdivinar[posPista]==' ') || (peliculaAdivinar[posPista]!='*')){
+            posPista=(int) (Math.random()*(peliculaAdivinar.length-1)+0);
+        }
+        
+        char letraPista=fraseRandom.charAt(posPista);
+        
         for(int k=0; k<peliculaAdivinar.length-1; k++){
-            if(fraseRandom.charAt(k)==intentoFrase.charAt(k)){
-                peliculaAdivinar[k]=intentoFrase.charAt(k);
-            }
-            else{
-                System.out.println("Lo siento, al parecer la frase es incorrecta");
+            if(fraseRandom.charAt(k)==letraPista){
+                peliculaAdivinar[k]=letraPista;
             }
         }
+        cont=cont-200;
     }
-    
 }
