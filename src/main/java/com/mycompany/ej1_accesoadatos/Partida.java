@@ -51,6 +51,7 @@ public class Partida {
             System.out.println(fraseRandom);
             System.out.println("Si quieres introducir una letra pulsa L, si quieres una pista pulsa P, si quieres adivinar la frase pulsa F");
             String  Sopciones= opciones.next();
+            String Sopciones2 = Sopciones.toUpperCase();
             if("l".equals(Sopciones) || "L".equals(Sopciones)){
             this.letraDescubrir();
             }else if("p".equals(Sopciones) || "P".equals(Sopciones)){
@@ -117,13 +118,13 @@ public class Partida {
     public void adivinarFrase() {
         Scanner introducida = new Scanner(System.in);
         String intentoFrase = introducida.nextLine();
-
-            if (!fraseRandom.equals(intentoFrase)) {
+        String  mayus = intentoFrase.toUpperCase();
+            if (!fraseRandom.equals(mayus)) {
                 System.out.println("Lo siento, al parecer la frase es incorrecta");
                 cont = cont - 500;
             } else {
                 for (int k = 0; k < peliculaAdivinar.length; k++) {
-                    peliculaAdivinar[k] = intentoFrase.charAt(k);
+                    peliculaAdivinar[k] = mayus.charAt(k);
                 }
             }
     }
