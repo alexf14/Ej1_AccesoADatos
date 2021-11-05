@@ -11,14 +11,20 @@ public class Partida {
     char[] peliculaAdivinar ;//array _ par desbloquear letras
     
     
-    Fichero_Facil a = new Fichero_Facil();
-    public void elegirPalabra (){//Elige palabra random del array list 
-        a.palabras();
-        int random =(int) Math.floor(Math.random()*(a.arrayFacil.size()-1)+0);
-        fraseRandom = a.arrayFacil.get(random);
-        //Manejar los errores estilo borrar la frase para q no se repita
-        //si el arraylist esta vacio volver a llenarlo
-        
+    Fichero_Facil f = new Fichero_Facil();
+    Fichero_Dificil d =new Fichero_Dificil();
+    
+    public void elegirPalabra (String diff){//Elige palabra random del array list 
+        int dificultad;
+        if(diff.equals("f")){
+            f.palabras();
+            int random =(int) Math.floor(Math.random()*(f.arrayFacil.size()-1)+0);
+            fraseRandom = f.arrayFacil.get(random);
+        }else if(diff.equals("d")){
+             d.palabras();
+            int random =(int) Math.floor(Math.random()*(d.arrayDificil.size()-1)+0);
+            fraseRandom = d.arrayDificil.get(random);
+        }
     }
     
     public void rellenarBarras(){//Relleno el array de char con _ y paso de los espacios
@@ -34,11 +40,11 @@ public class Partida {
         }    
     }
     
-    public void partida(){
+    public void partida(String diff){
         Scanner opciones = new Scanner(System.in);
         
         cont = 2000;
-        this.elegirPalabra();
+        this.elegirPalabra(diff);
         this.rellenarBarras();
         int contadorD = 0;
         
