@@ -1,25 +1,26 @@
 package com.mycompany.ej1_accesoadatos;
 
+import static com.mycompany.ej1_accesoadatos.Main.main;
 import java.io.*;
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-public class Partida {
+public class Partida implements Serializable{
     
     String fraseRandom;//Palabra para adivinar del random
     int cont;// Puntos  
-    char[] peliculaAdivinar ;//array _ para desbloquear letras
-    
+    char[] peliculaAdivinar ;//array _ para desbloquear letras    
     
     Fichero_Facil f = new Fichero_Facil();
     Fichero_Dificil d =new Fichero_Dificil();    
     
+    Main m=new Main();
+    
     public void elegirPalabra (String diff){//Elige palabra random del array list 
-        int dificultad;
         if(diff.equals("f")){
             f.palabras();
             int random =(int) Math.floor(Math.random()*(f.arrayFacil.size()-1)+0);
@@ -48,23 +49,29 @@ public class Partida {
         Scanner opciones = new Scanner(System.in);
         
         cont = 2000;
-        this.elegirPalabra(diff);
-        this.rellenarBarras();
+        
+        if(!diff.equals("c")){
+            this.elegirPalabra(diff);
+            this.rellenarBarras();}
         int contadorD = 0;
-        // bucle para saber cuando la partida esta terminada
-        for (boolean descubierto = false; !descubierto;) {
-            System.out.println(cont);
-            for(int k = 0; k < peliculaAdivinar.length; k++ ){
-                System.out.print(peliculaAdivinar[k]);
-            }
+            
+            // bucle para saber cuando la partida esta terminada
+            for (boolean descubierto = false; !descubierto;) {
+                System.out.println(cont);
+                for(int k = 0; k < peliculaAdivinar.length; k++ ){
+                    System.out.print(peliculaAdivinar[k]);
+                }
             System.out.println(" ");
             System.out.println(fraseRandom);
-            System.out.println("Si quieres introducir una letra pulsa L, si quieres una pista pulsa P, si quieres adivinar la frase pulsa F");
+            System.out.println("Si quieres introducir una letra pulsa L, \n"
+                    + " si quieres una pista pulsa P,\n si quieres adivinar la frase pulsa F, \n"
+                    + " y si quieres guardar partida pulsa G");
             String  Sopciones= opciones.next();
             //Control errores
             while(!("l".equals(Sopciones) || "L".equals(Sopciones))
                 && !("p".equals(Sopciones) || "P".equals(Sopciones))
-                && !("f".equals(Sopciones) || "F".equals(Sopciones)))
+                && !("f".equals(Sopciones) || "F".equals(Sopciones))
+                && !("g".equals(Sopciones) || "G".equals(Sopciones)))
             {    
                 System.out.println("Introduce una letra valida");
                 Sopciones= opciones.next();
@@ -76,6 +83,9 @@ public class Partida {
                 this.pista();
             }else if("f".equals(Sopciones) || "F".equals(Sopciones)){
                 this.adivinarFrase();
+            }else if("g".equals(Sopciones) || "G".equals(Sopciones)){
+                m.guardarPartida(this);
+                System.out.println("La partida se ha guardado con exito");
             }
             //me cuenta los asteriscos que quedan para saber cuando tengo q salir del bucle
             for(int x = 0; x < peliculaAdivinar.length; x++){
@@ -109,7 +119,7 @@ public class Partida {
         }
         
         if(!acierto){
-            System.out.println("Al parecer la letra que has introducido es incorrecta :,-(");
+            System.out.println("Al parecer la letra que has introducido es incorrecta");
             cont=cont-50;
         }
     }
@@ -142,46 +152,5 @@ public class Partida {
                     peliculaAdivinar[k] = mayus.charAt(k);
                 }
             }
-    }
-    
-    public void guardarPartida(){
-        try {
-            FileWriter save=new FileWriter("PartdiaGuardada.txt");
-            save.write(fraseRandom +'\n'+ cont +'\n'+ Arrays.toString(peliculaAdivinar) +'\n'+ f.arrayFacil +'\n'+ d.arrayDificil);
-            
-            save.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Partida.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    
-    public void cargarPartida(){
-        try {
-            FileReader entrada=new FileReader ("PartdiaGuardada.txt");
-            BufferedReader lectura=new BufferedReader(entrada);
-            String linea="";
-            int x=0;
-            while(linea!=null){
-                linea=lectura.readLine();
-                
-                /*if(x==0)
-                    fraseRandom=linea;
-                else if(x==1)
-                    cont=linea;
-                else if(x==2)
-                    peliculaAdivinar=linea;
-                else if(x==4)
-                    f.arrayFacil=linea;
-                else if(x==5)
-                    d.arrayDificil=linea;
-                x++;*/
-            }
-        }catch (FileNotFoundException ex) {
-            Logger.getLogger(Partida.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Partida.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
 }
