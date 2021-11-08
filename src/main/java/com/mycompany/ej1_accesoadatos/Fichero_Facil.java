@@ -14,7 +14,7 @@ public class Fichero_Facil{
     
     public void palabras(){
         Properties dificultad = new Properties();
-        try { 
+        try {
             dificultad.load(Files.newInputStream(Path.of("palabras.properties"))) ;
             String fileproperties = dificultad.getProperty("filepropertiesF");
             Charset charset = StandardCharsets.UTF_8;

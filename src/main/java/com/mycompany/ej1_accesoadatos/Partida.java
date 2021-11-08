@@ -1,34 +1,37 @@
 package com.mycompany.ej1_accesoadatos;
 
-import static com.mycompany.ej1_accesoadatos.Main.main;
 import java.io.*;
-import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Partida implements Serializable{
     
     String fraseRandom;//Palabra para adivinar del random
     int cont;// Puntos  
     char[] peliculaAdivinar ;//array _ para desbloquear letras    
+    ArrayList<String> arrFacil = new ArrayList<>();
+    ArrayList<String> arrDificil = new ArrayList<>();
     
-    Fichero_Facil f = new Fichero_Facil();
-    Fichero_Dificil d =new Fichero_Dificil();    
-    
-    Main m=new Main();
-    
-    public void elegirPalabra (String diff){//Elige palabra random del array list 
+    public void elegirPalabra (String diff){//Elige palabra random del array list segun la dificultad
+        int dificultad;
+
+        
         if(diff.equals("f")){
-            f.palabras();
-            int random =(int) Math.floor(Math.random()*(f.arrayFacil.size()-1)+0);
-            fraseRandom = f.arrayFacil.get(random);
+            if(arrFacil.size()==0){
+                rellenarArray();
+            }
+            int random =(int) Math.floor(Math.random()*(arrFacil.size()-1)+0);
+            fraseRandom = arrFacil.get(random);
+
+            arrFacil.remove(random);
         }else if(diff.equals("d")){
-             d.palabras();
-            int random =(int) Math.floor(Math.random()*(d.arrayDificil.size()-1)+0);
-            fraseRandom = d.arrayDificil.get(random);
+            if(arrDificil.size() == 0){
+               rellenarArray();
+            }
+            int random =(int) Math.floor(Math.random()*(arrDificil.size()-1)+0);
+            fraseRandom = arrDificil.get(random);
+
+            arrDificil.remove(random);
         }
     }
     
@@ -46,26 +49,31 @@ public class Partida implements Serializable{
     }
     
     public void partida(String diff){
+        Guardado g=new Guardado();
         Scanner opciones = new Scanner(System.in);
-        
-        cont = 2000;
-        
-        if(!diff.equals("c")){
+                
+ 
             this.elegirPalabra(diff);
-            this.rellenarBarras();}
+            this.rellenarBarras();
+            asignarPuntos();
+
         int contadorD = 0;
             
             // bucle para saber cuando la partida esta terminada
+            
             for (boolean descubierto = false; !descubierto;) {
-                System.out.println(cont);
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Puntuación: " + cont);
                 for(int k = 0; k < peliculaAdivinar.length; k++ ){
                     System.out.print(peliculaAdivinar[k]);
                 }
+                
             System.out.println(" ");
-            System.out.println(fraseRandom);
-            System.out.println("Si quieres introducir una letra pulsa L, \n"
-                    + " si quieres una pista pulsa P,\n si quieres adivinar la frase pulsa F, \n"
-                    + " y si quieres guardar partida pulsa G");
+            System.out.println("Si quieres introducir una letra pulsa L,\n" + 
+                    "si quieres una pista pulsa P,\n" + 
+                    "si quieres adivinar la frase pulsa F,\n" + 
+                    "y si quieres guardar partida pulsa G");
+            
             String  Sopciones= opciones.next();
             //Control errores
             while(!("l".equals(Sopciones) || "L".equals(Sopciones))
@@ -84,8 +92,7 @@ public class Partida implements Serializable{
             }else if("f".equals(Sopciones) || "F".equals(Sopciones)){
                 this.adivinarFrase();
             }else if("g".equals(Sopciones) || "G".equals(Sopciones)){
-                m.guardarPartida(this);
-                System.out.println("La partida se ha guardado con exito");
+                g.guardarPartida(this);
             }
             //me cuenta los asteriscos que quedan para saber cuando tengo q salir del bucle
             for(int x = 0; x < peliculaAdivinar.length; x++){
@@ -94,6 +101,11 @@ public class Partida implements Serializable{
                 }
             }
             //aqui sale del bucle si se cumple la condicion
+            if(cont <= 0){
+                System.out.println("Lo siento te has quedado sin puntos");
+                break;
+            }
+            
             if(contadorD==0){
                 System.out.println(fraseRandom);
                 System.out.println("FELICIDADES TE HAS QUEDADO CON "+ cont +" PUNTOS");
@@ -152,5 +164,19 @@ public class Partida implements Serializable{
                     peliculaAdivinar[k] = mayus.charAt(k);
                 }
             }
+    }
+    
+    public void asignarPuntos(){
+        this.cont = 2000;        
+    }
+    
+    public void rellenarArray(){
+        Fichero_Facil f=new Fichero_Facil();
+        f.palabras();
+        this.arrFacil= (ArrayList<String>) f.arrayFacil.clone(); 
+        
+        Fichero_Dificil d=new Fichero_Dificil();
+        d.palabras();
+        this.arrDificil= (ArrayList<String>) d.arrayDificil.clone();
     }
 }

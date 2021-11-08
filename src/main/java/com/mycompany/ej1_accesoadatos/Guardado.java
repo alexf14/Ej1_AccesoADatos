@@ -1,35 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.ej1_accesoadatos;
 
-import static com.mycompany.ej1_accesoadatos.Fichero_Dificil.arrayDificil;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Properties;
+import static java.nio.file.StandardOpenOption.CREATE;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author alexf
- */
-public class Guardado {
+public class Guardado implements Serializable{
+        public static void guardarPartida (Partida p){
 
-    String guardar;
-    public void palabras(){
-        Properties dificultad = new Properties();
-        try { 
-            dificultad.load(Files.newInputStream(Path.of("palabras.properties"))) ;
-            String fileproperties2 = dificultad.getProperty("filepropertiesC");
-            Charset charset = StandardCharsets.UTF_8;
-            var guardar = Files.readAllLines(Paths.get(fileproperties2), charset);
-        }catch(IOException ex){
-            System.err.println("error 404");
+            try { 
+            FileOutputStream fichero = null; 
+            fichero = new FileOutputStream ("PartidaGuardada.txt"); 
+            ObjectOutputStream save = new ObjectOutputStream (fichero);
+            save.writeObject(p);
+            System.out.println("Se ha guardado la partida");
+            } catch (FileNotFoundException ex) {
+           System.err.println("El fichero no se encuentra por FileNotFoundException");
+        } catch (IOException ex) {
+           System.err.println("Existe un error IOException");
+        }
+    }
+
+
+    public static void cargarPartida () {
+        try ( var cat = new ObjectInputStream( new BufferedInputStream(Files.newInputStream(Path.of("PartidaGuardada.txt"), CREATE)));) {
+               var p =  (Partida) cat.readObject();
+        } catch (IOException ex) {
+             System.err.println("Ha habido un error en IOException del cargado");
+        } catch (ClassNotFoundException ex) {
+              System.err.println("Ha habido un error en ClassNotFound del cargado");
+
         }
     }
 }
+
